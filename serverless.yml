@@ -23,6 +23,18 @@ service: cs493-aws-serverless
 provider:
   name: aws
   runtime: nodejs12.x
+  region: us-east-1
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:us-east-1:195191189173:table/users"
+
 
 # you can overwrite defaults here
 #  stage: dev
