@@ -27,20 +27,27 @@ module.exports.saveUser = async (event, context, callback) => {
   });
 };
 
-module.exports.getPlaylist = async event => {
+module.exports.getPlaylist = async (event, context, callback) => {
+  let playlistId = event.pathParameters.id;
   await ddb.scan({
-    TableName: 'users'
-  }, error => {
+    TableName: 'users',
+    FilterExpression: "PK = :pk",
+    ExpressionAttributeValues: {
+      ":pk": playlistId
+    }
+  }, (error, data) => {
     if (error) {
       callback(null, {
         statusCode: 400,
         body: "Failed"
       });
     }
-  });
-  callback(null, {
-    statusCode: 200,
-    body: "Ok"
+    if (data) {
+      callback(null, {
+        statusCode: 200,
+        body: JSON.stringify(data)
+      });
+    }
   });
 };
 

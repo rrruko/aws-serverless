@@ -80,7 +80,7 @@ functions:
     handler: handler.getPlaylist
     events:
       - http:
-          path: user/playlist
+          path: user/playlist/{id}
           method: get
           cors: true
   postPlaylist:
