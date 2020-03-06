@@ -58,12 +58,26 @@ provider:
 #    - exclude-me-dir/**
 
 functions:
-  hello:
-    handler: handler.hello
+  saveUser:
+    handler: handler.saveUser
     events:
       - http:
           path: save-user
+          method: post
+  getPlaylist:
+    handler: handler.getPlaylist
+    events:
+      - http:
+          path: user/playlist
           method: get
+          cors: true
+  postPlaylist:
+    handler: handler.postPlaylist
+    events:
+      - http:
+          path: user/playlist
+          method: post
+          cors: true
 #      - websocket: $connect
 #      - s3: ${env:BUCKET}
 #      - schedule: rate(10 minutes)
