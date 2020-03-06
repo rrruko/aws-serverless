@@ -62,7 +62,7 @@ functions:
     handler: handler.hello
     events:
       - http:
-          path: users/create
+          path: save-user
           method: get
 #      - websocket: $connect
 #      - s3: ${env:BUCKET}
