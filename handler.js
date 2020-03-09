@@ -20,7 +20,7 @@ module.exports.saveUser = async (event, context, callback) => {
         body: "Failed"
       });
     }
-  });
+  }).promise();
   callback(null, {
     statusCode: 200,
     body: "Ok"
@@ -29,7 +29,7 @@ module.exports.saveUser = async (event, context, callback) => {
 
 module.exports.getPlaylist = async (event, context, callback) => {
   let playlistId = event.pathParameters.id;
-  await ddb.scan({
+  let res = await ddb.scan({
     TableName: 'users',
     FilterExpression: "PK = :pk",
     ExpressionAttributeValues: {
@@ -48,7 +48,7 @@ module.exports.getPlaylist = async (event, context, callback) => {
         body: JSON.stringify(data)
       });
     }
-  });
+  }).promise();
 };
 
 module.exports.postPlaylist = async (event, context, callback) => {
@@ -74,7 +74,7 @@ module.exports.postPlaylist = async (event, context, callback) => {
           body: "Failed"
         });
       }
-    });
+    }).promise();
   }
   callback(null, {
     statusCode: 200,
