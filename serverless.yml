@@ -38,6 +38,10 @@ provider:
       Action:
         - sqs:*
       Resource: "arn:aws:sqs:us-east-1:195191189173:reporting.fifo"
+    - Effect: Allow
+      Action:
+        - sqs:*
+      Resource: "arn:aws:sqs:us-east-1:195191189173:logging.fifo"
 
 
 # you can overwrite defaults here
