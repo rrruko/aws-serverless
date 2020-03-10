@@ -34,6 +34,10 @@ provider:
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
       Resource: "arn:aws:dynamodb:us-east-1:195191189173:table/users"
+    - Effect: Allow
+      Action:
+        - sqs:*
+      Resource: "arn:aws:sqs:us-east-1:195191189173:reporting.fifo"
 
 
 # you can overwrite defaults here
