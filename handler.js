@@ -94,15 +94,15 @@ module.exports.play = async (event, context, callback) => {
   }
   let sqs = new AWS.SQS({});
   await sqs.sendMessage({
-    QueueUrl: 'https://sqs.us-east-1.amazonaws.com/195191189173/cs493-pubsub-2020-03-09.fifo',
+    QueueUrl: 'https://sqs.us-east-1.amazonaws.com/195191189173/reporting.fifo',
     MessageAttributes: {
       "artist": { DataType: "String", StringValue: artist },
       "album": { DataType: "String", StringValue: album },
       "song": { DataType: "String", StringValue: song }
     },
-    MessageBody: "owo",
+    MessageBody: "Song played",
     MessageDeduplicationId: Date.now().toString(),
-    MessageGroupId: "Group"
+    MessageGroupId: "reporting"
   }, (error, data) => {
     if (data) {
       callback(null, {
