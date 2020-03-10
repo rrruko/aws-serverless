@@ -76,6 +76,7 @@ functions:
       - http:
           path: save-user
           method: post
+          cors: true
   getPlaylist:
     handler: handler.getPlaylist
     events:
@@ -88,6 +89,13 @@ functions:
     events:
       - http:
           path: user/playlist
+          method: post
+          cors: true
+  play:
+    handler: handler.play
+    events:
+      - http:
+          path: play
           method: post
           cors: true
 #      - websocket: $connect
