@@ -89,7 +89,11 @@ module.exports.play = async (event, context, callback) => {
   if (!artist || !album || !song) {
     callback(null, {
       statusCode: 400,
-      body: "Missing parameters"
+      body: "Missing parameters",
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true
+      }
     });
   }
   let sqs = new AWS.SQS({});
@@ -107,17 +111,29 @@ module.exports.play = async (event, context, callback) => {
     if (data) {
       callback(null, {
         statusCode: 200,
-        body: `Ok (${data})`
+        body: `Ok (${data})`,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Credentials': true
+        }
       });
     } else if (error) {
       callback(null, {
         statusCode: 400,
-        body: `Error (${error})`
+        body: `Error (${error})`,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Credentials': true
+        }
       });
     } else {
       callback(null, {
         statusCode: 200,
-        body: `No response from sqs`
+        body: `No response from sqs`,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Credentials': true
+        }
       });
     }
   }).promise();
