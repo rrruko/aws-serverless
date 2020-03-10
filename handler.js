@@ -122,3 +122,15 @@ module.exports.play = async (event, context, callback) => {
     }
   }).promise();
 };
+
+module.exports.subscriber = async (event, context, callback) => {
+  let sqs = new AWS.SQS({});
+  let params = {
+    QueueUrl: 'https://sqs.us-east-1.amazonaws.com/195191189173/logging.fifo',
+    MessageAttributes: {},
+    MessageBody: `Log ${JSON.stringify(event)}`,
+    MessageDeduplicationId: Date.now().toString(),
+    MessageGroupId: "logging"
+  };
+  await sqs.sendMessage(params).promise();
+};

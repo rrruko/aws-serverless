@@ -102,6 +102,11 @@ functions:
           path: play
           method: post
           cors: true
+  subscriber:
+    handler: handler.subscriber
+    events:
+      - sqs:
+          arn: arn:aws:sqs:us-east-1:195191189173:reporting.fifo
 #      - websocket: $connect
 #      - s3: ${env:BUCKET}
 #      - schedule: rate(10 minutes)
