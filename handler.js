@@ -125,10 +125,15 @@ module.exports.play = async (event, context, callback) => {
 
 module.exports.subscriber = async (event, context, callback) => {
   let sqs = new AWS.SQS({});
+  let payloads = event.Records.map(x => ({
+    "song": x.messageAttributes.song.stringValue,
+    "album": x.messageAttributes.album.stringValue,
+    "artist": x.messageAttributes.artist.stringValue
+  }));
   let params = {
     QueueUrl: 'https://sqs.us-east-1.amazonaws.com/195191189173/logging.fifo',
     MessageAttributes: {},
-    MessageBody: `Log ${JSON.stringify(event)}`,
+    MessageBody: `Log ${JSON.stringify(payloads)}`,
     MessageDeduplicationId: Date.now().toString(),
     MessageGroupId: "logging"
   };
