@@ -83,9 +83,9 @@ module.exports.postPlaylist = async (event, context, callback) => {
 };
 
 module.exports.play = async (event, context, callback) => {
-  let artist = event.artist;
-  let album = event.album;
-  let song = event.song;
+  let artist = JSON.parse(event.body).artist;
+  let album = JSON.parse(event.body).album;
+  let song = JSON.parse(event.body).song;
   if (!artist || !album || !song) {
     callback(null, {
       statusCode: 400,
